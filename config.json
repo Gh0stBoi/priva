@@ -1,0 +1,65 @@
+{
+  "clientId": "1389272413816094736",
+  "guildId": "1030932869541011536",
+  "adminRoleId": "1389307110541754449",
+  "feedbackChannelId": "1389305820554072084",
+  "reviewsChannelId": "1344715622323327007",
+  "bookingChannelId": "1389306369332740286  ",
+  "bookingCategoryId": "1319678005081145395",
+  "bookingStatusChannelId": "1338219492785787042",
+  "embed": {
+    "title": "🌟 Share Your Feedback!",
+    "description": "```We value your opinion! Click the button below to share your feedback and help us improve.```",
+    "color": "#0099ff"
+  },
+  "bookingEmbed": {
+    "title": "BOOK A SLOT",
+    "description": "```Ready to bring your vision to life? Click the button below to book a slot for your cinematic project!```\n\nAlso, please keep an eye on the https://discord.com/channels/1030932869541011536/1338219492785787042 section to check whether commissions are currently open or closed. If commissions are closed, you won’t be able to book a slot — kindly wait until they reopen.",
+    "color": "#FF4500"
+  },
+  "bookingStatusEmbeds": {
+    "enabled": {
+      "title": "✅ BOOKINGS ARE NOW OPEN!",
+      "description": "@everyone ```We are now accepting new cinematic project bookings. Head over to the booking channel to get started!```",
+      "color": "#57F287",
+      "imageUrl": "https://cdn.discordapp.com/attachments/1373689700380049550/1389292850444767323/standard.gif?ex=6864174b&is=6862c5cb&hm=4c4c9c6ef5332005d2ab29fa493687135e4f27123f75a3eadc929e37764fdc44&"
+    },
+    "disabled": {
+      "title": "❌ BOOKINGS ARE NOW CLOSED!",
+      "description": "@everyone ```We are currently not accepting new bookings. We'll let you know when they open up again!```",
+      "color": "#ED4245",
+      "imageUrl": "https://cdn.discordapp.com/attachments/1373689700380049550/1389293148663971880/standard_1.gif?ex=68641792&is=6862c612&hm=46b557b56e162046fbcf3d0de60af877943393a11693b412b4dcf0dae9d8394b&"
+    }
+  },
+  "creatorChannelId": "1031080332012814398",
+  "creatorLogChannelId": "1031080332012814398",
+  "creatorTiers": [
+    {
+      "count": 10,
+      "roleId": "1432646287672479836",
+      "name": "Tier 1 Creator"
+    },
+    {
+      "count": 20,
+      "roleId": "1432646842704859156",
+      "name": "Tier 2 Creator"
+    },
+    {
+      "count": 40,
+      "roleId": "1432646539708203069",
+      "name": "Tier 3 Creator"
+    },
+    {
+      "count": 60,
+      "roleId": "1432648552378531871",
+      "name": "Skilled Creator"
+    }
+  ],
+  "weeklyRecapChannelId": "1031080332012814398",
+  "bestPostChannelId": "1485276289689452661",
+  "weeklyRecapTime": "12:00",
+  "weeklyRecapEmbed": {
+    "title": "🏆 Weekly Creator Recap!",
+    "color": "#FFD700"
+  }
+}
