@@ -27,7 +27,7 @@ async function initSheets() {
         // Initialize auth - see https://theoephraim.github.io/node-google-spreadsheet/#/guides/authentication
         const serviceAccountAuth = new JWT({
             email: creds.client_email,
-            key: creds.private_key,
+            key: creds.private_key.replace(/\\n/g, '\n').replace(/\r/g, ''),
             scopes: [
                 'https://www.googleapis.com/auth/spreadsheets',
             ],
@@ -47,6 +47,7 @@ async function initSheets() {
         return true;
     } catch (error) {
         console.error("❌ Failed to initialize Google Sheets:", error);
+        doc = null;
         return false;
     }
 }
