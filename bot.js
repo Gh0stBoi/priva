@@ -99,7 +99,7 @@ const client = new Client({
 });
 
 // --- Bot Ready Event ---
-client.once('clientReady', async () => {
+client.once('ready', async () => {
     console.log(`✅ Ready! Logged in as ${client.user.tag}`);
     console.log(`Bot is on ${client.guilds.cache.size} servers.`);
     
@@ -238,5 +238,11 @@ app.listen(PORT, () => {
     await loadState();
     await sheets.initSheets();
     sheets.syncStateToSheets(state).catch(e => console.error("Initial Sheets Sync Error:", e));
-    client.login(process.env.DISCORD_TOKEN);
+    
+    // Debug events to see exactly what is failing
+    client.on('debug', console.log);
+    client.on('error', console.error);
+    
+    console.log("Attempting to log into Discord...");
+    client.login(process.env.DISCORD_TOKEN).catch(e => console.error("CRITICAL DISCORD LOGIN ERROR:", e));
 })();
