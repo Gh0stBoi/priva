@@ -1,3 +1,8 @@
+const dns = require('dns');
+if (dns.setDefaultResultOrder) {
+    dns.setDefaultResultOrder('ipv4first');
+}
+
 const { 
     Client, 
     GatewayIntentBits, 
@@ -135,28 +140,35 @@ client.on('interactionCreate', async interaction => {
 
     // Handle Slash Commands
     if (interaction.isCommand()) {
-        switch (interaction.commandName) {
-            case 'helpmarco':
-                handleHelpCommand(interaction);
-                break;
-            case 'send-feedback-embed':
-                feedback.handleSendFeedbackEmbed(interaction);
-                break;
-            case 'send-booking-embed':
-                booking.handleSendBookingEmbed(interaction, state);
-                break;
-            case 'toggle-booking':
-                booking.handleToggleBooking(interaction, state, saveState);
-                break;
-            case 'leaderboard':
-                counter.handleLeaderboardCommand(interaction, state);
-                break;
-            case 'setbotlogs':
-                logger.handleSetBotLogs(interaction, state, saveState);
-                break;
-            case 'toggle-logging':
-                logger.handleToggleLogging(interaction, state, saveState);
-                break;
+        try {
+            switch (interaction.commandName) {
+                case 'helpmarco':
+                    await handleHelpCommand(interaction);
+                    break;
+                case 'send-feedback-embed':
+                    await feedback.handleSendFeedbackEmbed(interaction);
+                    break;
+                case 'send-booking-embed':
+                    await booking.handleSendBookingEmbed(interaction, state);
+                    break;
+                case 'toggle-booking':
+                    await booking.handleToggleBooking(interaction, state, saveState);
+                    break;
+                case 'leaderboard':
+                    await counter.handleLeaderboardCommand(interaction, state);
+                    break;
+                case 'setbotlogs':
+                    await logger.handleSetBotLogs(interaction, state, saveState);
+                    break;
+                case 'toggle-logging':
+                    await logger.handleToggleLogging(interaction, state, saveState);
+                    break;
+            }
+        } catch (commandError) {
+            console.error(`Error executing /${interaction.commandName}:`, commandError);
+            if (!interaction.replied && !interaction.deferred) {
+                await interaction.reply({ content: '❌ An error occurred executing this command.', flags: [MessageFlags.Ephemeral] }).catch(() => {});
+            }
         }
     }
     // Handle Button Clicks
@@ -239,9 +251,11 @@ app.listen(PORT, () => {
     await sheets.initSheets();
     sheets.syncStateToSheets(state).catch(e => console.error("Initial Sheets Sync Error:", e));
     
-    // Debug events to see exactly what is failing
+    // Debug and network diagnostic events
     client.on('debug', console.log);
     client.on('error', console.error);
+    client.on('shardError', (error, shardId) => console.error(`[Shard ${shardId} Error]:`, error));
+    client.rest.on('rateLimited', (info) => console.warn('⚠️ [REST Rate Limit Hit]:', info));
     
     console.log("Attempting to log into Discord...");
     client.login(process.env.DISCORD_TOKEN).catch(e => console.error("CRITICAL DISCORD LOGIN ERROR:", e));
